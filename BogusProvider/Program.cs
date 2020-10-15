@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace BogusProvider
 {
@@ -18,6 +13,22 @@ namespace BogusProvider
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.ConfigureKestrel((context, options) =>
+                    {
+                        var certificateConfig = context.Configuration.GetSection("Certificate");
+                        var certFileName = certificateConfig["FileName"];
+                        var certPassword = certificateConfig["Password"];
+                        // Configure the Url and ports to bind to
+                        // This overrides calls to UseUrls and the ASPNETCORE_URLS environment variable, but will be 
+                        // overridden if you call UseIisIntegration() and host behind IIS/IIS Express
+                        options.ListenLocalhost(5002, listenOptions =>
+                        {
+                            listenOptions.UseHttps(certFileName, certPassword);
+                            listenOptions.Protocols = HttpProtocols.Http2;
+                        });
+                    }).UseStartup<Startup>();
+                });
     }
 }
