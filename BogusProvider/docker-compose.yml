@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  BogusProvider:
+    build: .
+    image: bogusprovider:0.1.0
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets:ro
+      - ${HOME}/LocalHostCertificate/:/https/:ro
+    container_name: fakeproducts
+    ports:
+      - 5002:5002
