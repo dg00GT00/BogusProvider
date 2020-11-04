@@ -1,3 +1,4 @@
+using BogusProvider.Entities;
 using BogusProvider.FakeProductServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,10 +16,10 @@ namespace BogusProvider.Controllers
         }
 
         [HttpGet]
-        public ActionResult<string> GetFakeProduct()
+        public ActionResult<Product> GetFakeProduct()
         {
             var product = _fakeProduct.GenerateFakeProducts();
-            return Ok(_fakeProduct.GenerateJsonProduct(product));
+            return Ok(product);
         }
     }
 }
