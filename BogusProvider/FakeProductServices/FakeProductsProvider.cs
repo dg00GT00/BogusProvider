@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Bogus;
 using BogusProvider.Entities;
 
@@ -25,12 +24,6 @@ namespace BogusProvider.FakeProductServices
                 });
 
             return product.Generate();
-        }
-
-        public string GenerateJsonProduct(Product product)
-        {
-            var jsonOptions = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
-            return JsonSerializer.Serialize(product, jsonOptions);
         }
     }
 }
