@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BogusProvider", "BogusProvider\BogusProvider.csproj", "{C7D11C6E-F5D5-484A-B457-2DA6F3D9B1A6}"
 EndProject
 Global
