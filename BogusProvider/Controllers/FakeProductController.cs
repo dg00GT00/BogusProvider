@@ -1,5 +1,6 @@
 using BogusProvider.Entities;
 using BogusProvider.FakeProductServices;
+using BogusProvider.ModelValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BogusProvider.Controllers
@@ -16,9 +17,9 @@ namespace BogusProvider.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Product> GetFakeProduct()
+        public ActionResult<Product> GetFakeProduct([FromQuery] RandomId randomId)
         {
-            var product = _fakeProduct.GenerateFakeProducts();
+            var product = _fakeProduct.GenerateFakeProducts(randomId.BrandId, randomId.TypeId);
             return Ok(product);
         }
     }
