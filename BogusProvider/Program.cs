@@ -27,8 +27,6 @@ namespace BogusProvider
                         }
 
                         var certPassword = certificateConfig["Password"];
-                        Console.WriteLine("CertificateName: {0}", certFileName);
-                        Console.WriteLine("CertificatePassword: {0}", certPassword);
                         // Configure the Url and ports to bind to
                         // This overrides calls to UseUrls and the ASPNETCORE_URLS environment variable, but will be 
                         // overridden if you call UseIisIntegration() and host behind IIS/IIS Express
