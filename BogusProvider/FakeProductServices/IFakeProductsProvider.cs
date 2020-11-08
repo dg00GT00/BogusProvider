@@ -4,6 +4,6 @@ namespace BogusProvider.FakeProductServices
 {
     public interface IFakeProductsProvider
     {
-        Product GenerateFakeProducts();
+        Product GenerateFakeProducts(int? maxProductBrandId, int? maxProductTypeId);
     }
 }
