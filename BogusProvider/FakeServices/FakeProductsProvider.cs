@@ -1,7 +1,8 @@
 using Bogus;
 using BogusProvider.Entities;
+using BogusProvider.FakeServices.Interfaces;
 
-namespace BogusProvider.FakeProductServices
+namespace BogusProvider.FakeServices
 {
     /// <summary>
     /// Provides a fake product set
@@ -16,7 +17,7 @@ namespace BogusProvider.FakeProductServices
         /// <param name="maxProductTypeId">the max limit number used to generate a random number
         ///     which will be used to feed the Id property of the ProductType navigational property</param>
         /// <returns></returns>
-        public Product GenerateFakeProducts(int? maxProductBrandId, int? maxProductTypeId)
+        public Product GenerateFakeProduct(int? maxProductBrandId, int? maxProductTypeId)
         {
             var productTypeId = maxProductTypeId ?? 1;
             var productBrandId = maxProductBrandId ?? 1;

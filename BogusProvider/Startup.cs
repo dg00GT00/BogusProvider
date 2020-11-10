@@ -1,4 +1,5 @@
-using BogusProvider.FakeProductServices;
+using BogusProvider.FakeServices;
+using BogusProvider.FakeServices.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ namespace BogusProvider
         {
             services.AddControllers();
             services.AddScoped<IFakeProductsProvider, FakeProductsProvider>();
+            services.AddScoped<IFakeUserProvider, FakeUserProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,8 +36,6 @@ namespace BogusProvider
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
