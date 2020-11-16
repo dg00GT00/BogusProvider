@@ -1,5 +1,8 @@
+using System;
+using System.Threading.Tasks;
 using BogusProvider.FakeServices;
 using BogusProvider.FakeServices.Interfaces;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +24,22 @@ namespace BogusProvider
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
+                .AddCertificate(options =>
+                {
+                    Console.WriteLine("Before validation");
+                    options.Events = new CertificateAuthenticationEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            Console.WriteLine("Certificate Authentication Succeed");
+                            Console.WriteLine($"Results: {context.Result}");
+                            Console.WriteLine($"Scheme: {context.Scheme}");
+                            return Task.CompletedTask;
+                        },
+                    };
+                });
+            services.AddAuthorization();
             services.AddScoped<IFakeProductsProvider, FakeProductsProvider>();
             services.AddScoped<IFakeUserProvider, FakeUserProvider>();
         }
@@ -36,6 +55,10 @@ namespace BogusProvider
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseAuthentication();
+            
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
