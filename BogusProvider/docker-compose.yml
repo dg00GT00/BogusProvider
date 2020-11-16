@@ -7,7 +7,7 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
     volumes:
       - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets:ro
-      - ${HOME}/LocalHostCertificate/:/https/:ro
+      - ${HOME}/CA/server/certs/:/https/:ro
     container_name: fake
     ports:
       - 5002:5002
